@@ -1,0 +1,367 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Alpenrose University</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background:
+                linear-gradient(rgba(16,39,71,.85), rgba(16,39,71,.85)),
+                url('https://images.unsplash.com/photo-1562774053-701939374585?w=1500');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 25px;
+        }
+
+        .login-box {
+            background: #f8f5ee;
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 15px 50px rgba(0,0,0,.25);
+        }
+
+        .brand {
+            color: #102747;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 34px;
+            font-weight: 700;
+        }
+
+        .brand-icon {
+            font-size: 38px;
+            color: #c39a48;
+        }
+
+        .subtitle {
+            color: #777;
+            font-size: 13px;
+        }
+
+        .role-card {
+            background: white;
+            border: 2px solid #e3ded3;
+            padding: 20px 10px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: .3s;
+            height: 100%;
+        }
+
+        .role-card:hover {
+            border-color: #c39a48;
+            transform: translateY(-3px);
+        }
+
+        .role-card.active {
+            border-color: #102747;
+            background: #e9edf2;
+        }
+
+        .role-card i {
+            font-size: 35px;
+            color: #c39a48;
+        }
+
+        .role-card h5 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 23px;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+
+        .form-label {
+            color: #102747;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .form-control {
+            padding: 12px;
+            border-radius: 7px;
+        }
+
+        .form-control:focus {
+            border-color: #c39a48;
+            box-shadow: 0 0 0 .2rem rgba(195,154,72,.15);
+        }
+
+        .btn-submit {
+            background: #102747;
+            color: white;
+            width: 100%;
+            padding: 13px;
+            border-radius: 30px;
+            font-weight: 600;
+        }
+
+        .btn-submit:hover {
+            background: #c39a48;
+            color: white;
+        }
+
+        .back-link {
+            color: #102747;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .back-link:hover {
+            color: #c39a48;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login-box">
+
+    <!-- LOGO -->
+    <div class="text-center mb-4">
+
+        <i class="bi bi-shield-fill-check brand-icon"></i>
+
+        <h1 class="brand mb-0">ALPENROSE</h1>
+
+        <h6 style="letter-spacing:4px; color:#102747;">
+            UNIVERSITY
+        </h6>
+
+        <p class="subtitle mt-3">
+            Welcome Back! Please Login to Your Account.
+        </p>
+
+    </div>
+
+    <!-- PILIH JENIS AKUN -->
+    <h6 class="fw-bold mb-3 text-center">
+        SELECT YOUR ACCOUNT
+    </h6>
+
+    <div class="row g-3 mb-4">
+
+        <div class="col-6">
+            <div class="role-card" id="dosenCard"
+                onclick="pilihRole('dosen')">
+
+                <i class="bi bi-person-workspace"></i>
+
+                <h5>Dosen</h5>
+
+                <small class="text-muted">
+                    Lecturer Account
+                </small>
+
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="role-card" id="mahasiswaCard"
+                onclick="pilihRole('mahasiswa')">
+
+                <i class="bi bi-mortarboard-fill"></i>
+
+                <h5>Mahasiswa</h5>
+
+                <small class="text-muted">
+                    Student Account
+                </small>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FORM LOGIN -->
+    <form action="proses_login.php" method="POST"
+        onsubmit="return validasiLogin()">
+
+        <!-- JENIS AKUN -->
+        <input type="hidden" name="role" id="role">
+
+        <!-- USERNAME -->
+        <div class="mb-3">
+
+            <label class="form-label" id="identityLabel">
+                Username
+            </label>
+
+            <input type="text"
+                class="form-control"
+                id="username"
+                name="username"
+                placeholder="Masukkan username"
+                autocomplete="username"
+                required>
+
+        </div>
+
+        <!-- PASSWORD -->
+        <div class="mb-3">
+
+            <label class="form-label">
+                Password
+            </label>
+
+            <div class="input-group">
+
+                <input type="password"
+                    class="form-control"
+                    id="password"
+                    name="password"
+                    placeholder="Masukkan password"
+                    autocomplete="current-password"
+                    required>
+
+                <button class="btn btn-outline-secondary"
+                    type="button"
+                    onclick="togglePassword()">
+
+                    <i class="bi bi-eye" id="eyeIcon"></i>
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- REMEMBER ME -->
+        <div class="d-flex justify-content-between mb-4">
+
+            <div class="form-check">
+
+                <input class="form-check-input"
+                    type="checkbox"
+                    name="remember"
+                    id="remember">
+
+                <label class="form-check-label small"
+                    for="remember">
+                    Remember Me
+                </label>
+
+            </div>
+
+            <a href="#" class="small text-decoration-none">
+                Forgot Password?
+            </a>
+
+        </div>
+
+        <!-- BUTTON LOGIN -->
+        <button type="submit" class="btn btn-submit">
+            <i class="bi bi-box-arrow-in-right"></i>
+            Login to Account
+        </button>
+
+    </form>
+
+    <!-- BACK TO HOME -->
+    <div class="text-center mt-4">
+
+        <a href="index.html" class="back-link">
+            <i class="bi bi-arrow-left"></i>
+            Back to Homepage
+        </a>
+
+    </div>
+
+    <hr>
+
+    <p class="text-center text-muted small mb-0">
+        © 2026 Alpenrose University
+    </p>
+
+</div>
+
+
+<script>
+
+   
+let selectedRole = "";
+
+// PILIH JENIS AKUN
+function pilihRole(role) {
+
+    selectedRole = role;
+
+    document.getElementById("role").value = role;
+
+    document.getElementById("dosenCard")
+        .classList.remove("active");
+
+    document.getElementById("mahasiswaCard")
+        .classList.remove("active");
+
+    if (role === "dosen") {
+
+        document.getElementById("dosenCard")
+            .classList.add("active");
+
+        document.getElementById("identityLabel")
+            .innerText = "Username Dosen";
+
+        document.getElementById("username")
+            .placeholder = "Masukkan username dosen";
+
+    } else {
+
+        document.getElementById("mahasiswaCard")
+            .classList.add("active");
+
+        document.getElementById("identityLabel")
+            .innerText = "Username Mahasiswa";
+
+        document.getElementById("username")
+            .placeholder = "Masukkan username mahasiswa";
+
+    }
+}
+
+// TAMPILKAN PASSWORD
+function togglePassword() {
+
+    const password = document.getElementById("password");
+    const eyeIcon = document.getElementById("eyeIcon");
+
+    if (password.type === "password") {
+        password.type = "text";
+        eyeIcon.classList.replace("bi-eye", "bi-eye-slash");
+    } else {
+        password.type = "password";
+        eyeIcon.classList.replace("bi-eye-slash", "bi-eye");
+    }
+}
+
+// VALIDASI LOGIN
+function validasiLogin() {
+
+    // Jika role belum dipilih, tetap izinkan submit.
+    // Admin akan dikenali melalui database.
+    return true;
+
+}
+
+</script>
+
+</body>
+</html>
